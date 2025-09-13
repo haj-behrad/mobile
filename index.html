@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فروشگاه آنلاین گوشی | محمد جواد بهرامی</title>
+    <style>
+        :root {
+            --background-color: #121212;
+            --surface-color: rgba(30, 30, 30, 0.75);
+            --primary-text-color: #e0e0e0;
+            --secondary-text-color: #a0a0a0;
+            --accent-color: #77aaff;
+            --success-color: #4CAF50;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--primary-text-color);
+            background-image: url('nature.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 15px;
+        }
+
+        header {
+            background: var(--surface-color);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            color: #fff;
+            padding: 15px 0;
+            border-bottom: var(--accent-color) 2px solid;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header a { color: #fff; text-decoration: none; font-size: 16px; }
+        header #branding h1 { margin: 0; font-size: 24px; }
+        header .highlight { color: var(--accent-color); }
+        header nav ul { padding: 0; margin: 0; list-style: none; }
+        header nav li { display: inline; padding: 0 15px; }
+        
+        #cart-button {
+            cursor: pointer;
+            background: var(--accent-color);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .page { padding-top: 20px; padding-bottom: 20px; }
+
+        .showcase {
+            min-height: 300px;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .showcase h1 { font-size: 50px; margin-bottom: 10px; }
+
+        #products-grid {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .product {
+            width: 250px;
+            background: var(--surface-color);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px var(--accent-color);
+        }
+
+        .product img { width: 100%; height: 200px; object-fit: contain; border-radius: 5px; }
+        .product h3 { margin-top: 15px; color: var(--primary-text-color); }
+        .product p { color: var(--secondary-text-color); }
+
+        .btn {
+            background: var(--accent-color);
+            color: #000;
+            font-weight: bold;
+            border: 0;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        .btn:hover { background: #fff; }
+        
+        .page-content {
+            background: var(--surface-color);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 40px auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .page-content h2 { text-align: center; color: var(--accent-color); margin-bottom: 20px; }
+        .cart-item, .invoice-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #444; font-size: 18px; }
+        .total-section { text-align: left; margin-top: 20px; font-size: 22px; font-weight: bold; }
+        .page-actions { display: flex; justify-content: space-between; margin-top: 30px; }
+        
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--secondary-text-color);
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
+        }
+        
+        #payment-success { text-align: center; }
+        .success-icon {
+            font-size: 60px;
+            color: var(--success-color);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border: 3px solid var(--success-color);
+            border-radius: 50%;
+            margin: 20px auto;
+        }
+        #payment-success h2 { color: var(--success-color); }
+        #payment-success .page-actions { justify-content: center; }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: var(--secondary-text-color);
+        }
+        .footer-text a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        #page-products .footer-text {
+            background: var(--surface-color);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 20px 30px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 60px auto 20px auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .page-content .footer-text {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding"><h1><span class="highlight">فروشگاه</span> آنلاین</h1></div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showPage('page-products')">محصولات</a></li>
+                    <li id="cart-button" onclick="showPage('page-cart')">سبد خرید (<span id="cart-count">0</span>)</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- صفحه محصولات -->
+        <section id="page-products" class="page">
+            <div class="showcase"><h1>جدیدترین گوشی‌های هوشمند</h1></div>
+            <div id="products-grid">
+                <div class="product">
+                    <img src="s25u.png" alt="Samsung Galaxy S25 Ultra">
+                    <h3>Samsung Galaxy S25 Ultra</h3><p>قیمت: 50,000,000 تومان</p>
+                    <button class="btn" onclick="addToCart('Samsung Galaxy S25 Ultra', 50000000)">افزودن به سبد</button>
+                </div>
+                <div class="product">
+                    <img src="s25.jpg" alt="Samsung Galaxy S25">
+                    <h3>Samsung Galaxy S25</h3><p>قیمت: 45,000,000 تومان</p>
+                    <button class="btn" onclick="addToCart('Samsung Galaxy S25', 45000000)">افزودن به سبد</button>
+                </div>
+                 <div class="product">
+                    <img src="s24.png" alt="Samsung Galaxy S24">
+                    <h3>Samsung Galaxy S24</h3><p>قیمت: 40,000,000 تومان</p>
+                    <button class="btn" onclick="addToCart('Samsung Galaxy S24', 40000000)">افزودن به سبد</button>
+                </div>
+                 <div class="product">
+                    <img src="s23.png" alt="Samsung Galaxy S23">
+                    <h3>Samsung Galaxy S23</h3><p>قیمت: 35,000,000 تومان</p>
+                    <button class="btn" onclick="addToCart('Samsung Galaxy S23', 35000000)">افزودن به سبد</button>
+                </div>
+                <div class="product">
+                    <img src="i16pm.png" alt="iPhone 16 Pro Max">
+                    <h3>iPhone 16 Pro Max</h3><p>قیمت: 60,000,000 تومان</p>
+                    <button class="btn" onclick="addToCart('iPhone 16 Pro Max', 60000000)">افزودن به سبد</button>
+                </div>
+                <div class="product">
+                    <img src="i15pm.webp" alt="iPhone 15 Pro Max">
+                    <h3>iPhone 15 Pro Max</h3><p>قیمت: 55,000,000 تومان</p>
+                    <button class="btn" onclick="addToCart('iPhone 15 Pro Max', 55000000)">افزودن به سبد</button>
+                </div>
+            </div>
+            <footer class="footer-text">
+                <p>&copy; 2025 فروشگاه آنلاین. تمام حقوق محفوظ است.</p>
+                <p>طراحی شده توسط <a href="#">محمد جواد بهرامی</a></p>
+            </footer>
+        </section>
+
+        <!-- صفحه سبد خرید -->
+        <section id="page-cart" class="page" style="display:none;">
+            <div class="page-content">
+                <h2>سبد خرید شما</h2>
+                <div id="cart-items-list"></div>
+                <div class="total-section">جمع کل: <span id="cart-total-price">0</span> تومان</div>
+                <div class="page-actions">
+                    <button class="btn" onclick="showPage('page-products')">ادامه خرید</button>
+                    <button class="btn" onclick="showPage('page-invoice')">پرداخت نهایی</button>
+                </div>
+                <footer class="footer-text">
+                    <p>&copy; 2025 فروشگاه آنلاین. تمام حقوق محفوظ است.</p>
+                    <p>طراحی شده توسط <a href="#">محمد جواد بهرامی</a></p>
+                </footer>
+            </div>
+        </section>
+
+        <!-- صفحه فاکتور و موفقیت -->
+        <section id="page-invoice" class="page" style="display:none;">
+            <div class="page-content">
+                <div id="invoice-details">
+                    <h2>فاکتور نهایی</h2>
+                    <div class="invoice-header">
+                        <span>شماره فاکتور: <span id="invoice-number"></span></span>
+                        <span>تاریخ: <span id="invoice-date"></span></span>
+                    </div>
+                    <div id="invoice-items-list"></div>
+                    <div class="total-section">مبلغ قابل پرداخت: <span id="invoice-total-price">0</span> تومان</div>
+                    <div class="page-actions">
+                        <button class="btn" onclick="showPage('page-cart')">بازگشت به سبد</button>
+                        <button class="btn" onclick="processPayment()">پرداخت کن</button>
+                    </div>
+                </div>
+                <div id="payment-success" style="display:none;">
+                    <div class="success-icon">&#10004;</div>
+                    <h2>خرید با موفقیت انجام شد!</h2>
+                    <p>از خرید شما متشکریم. سفارش شما با موفقیت ثبت شد.</p>
+                    <div class="page-actions">
+                        <button class="btn" onclick="startOver()">خرید جدید</button>
+                    </div>
+                </div>
+                <footer class="footer-text">
+                    <p>&copy; 2025 فروشگاه آنلاین. تمام حقوق محفوظ است.</p>
+                    <p>طراحی شده توسط <a href="#">محمد جواد بهرامی</a></p>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let cart = [];
+        const pages = document.querySelectorAll('.page');
+
+        function showPage(pageId) {
+            pages.forEach(page => { page.style.display = 'none'; });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) { targetPage.style.display = 'block'; }
+
+            if (pageId === 'page-cart') {
+                updateCartPage();
+            } else if (pageId === 'page-invoice') {
+                document.getElementById('invoice-details').style.display = 'block';
+                document.getElementById('payment-success').style.display = 'none';
+                updateInvoicePage();
+            }
+        }
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            document.getElementById('cart-count').textContent = cart.length;
+            alert(`${productName} به سبد خرید اضافه شد.`);
+        }
+
+        function updateCartPage() {
+            const cartItemsList = document.getElementById('cart-items-list');
+            cartItemsList.innerHTML = '';
+            let totalPrice = 0;
+
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '<p style="text-align:center;">سبد خرید شما خالی است.</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML = `<span>${item.name}</span><span>${item.price.toLocaleString()} تومان</span>`;
+                    cartItemsList.appendChild(itemDiv);
+                    totalPrice += item.price;
+                });
+            }
+            document.getElementById('cart-total-price').textContent = totalPrice.toLocaleString();
+        }
+
+        function updateInvoicePage() {
+            const invoiceItemsList = document.getElementById('invoice-items-list');
+            invoiceItemsList.innerHTML = '';
+            let totalPrice = 0;
+
+            if (cart.length === 0) {
+                invoiceItemsList.innerHTML = '<p style="text-align:center;">هیچ محصولی برای صدور فاکتور وجود ندارد.</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'invoice-item';
+                    itemDiv.innerHTML = `<span>${item.name}</span><span>${item.price.toLocaleString()} تومان</span>`;
+                    invoiceItemsList.appendChild(itemDiv);
+                    totalPrice += item.price;
+                });
+            }
+            
+            document.getElementById('invoice-number').textContent = Math.floor(Math.random() * 900000) + 100000;
+            document.getElementById('invoice-date').textContent = new Date().toLocaleDateString('fa-IR');
+            document.getElementById('invoice-total-price').textContent = totalPrice.toLocaleString();
+        }
+
+        function processPayment() {
+            if (cart.length === 0) {
+                alert('سبد خرید شما برای پرداخت خالی است!');
+                return;
+            }
+            document.getElementById('invoice-details').style.display = 'none';
+            document.getElementById('payment-success').style.display = 'block';
+        }
+        
+        function startOver() {
+            cart = [];
+            document.getElementById('cart-count').textContent = 0;
+            showPage('page-products');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('page-products');
+        });
+    </script>
+</body>
+</html>
